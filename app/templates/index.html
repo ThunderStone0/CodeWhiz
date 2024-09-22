@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/css/style.css" />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>CodeWhiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="static/imgs/favicon.png" />
+  </head>
+  <body class="bg-gray-900">
+    <nav class="font-bold">
+      <a href="#" class="logo">
+        <img src="static/imgs/logo.png" />
+      </a>
+      <div class="flex items-center space-x-6">
+        <ul class="space-x-6">
+          <li>
+            <a onclick="openModalError()">Quiz</a>
+          </li>
+          <li>
+            <a onclick="openModalError()">Leaderboard</a>
+          </li>
+          <li>
+            <a href="/portfolio">About</a>
+          </li>
+        </ul>
+        <a onclick="openModalLogin()" class="text-white cursor-pointer"
+          >Log In</a
+        >
+        <button onclick="openModalSignup()" class="text-black bg-white rounded-full px-4 py-2"
+          >Sign Up</a
+        >
+      </div>
+    </nav>
+    <main>
+      <section class="hero-section">
+        <img src="static/imgs/wallpaper.jpg" class="absolute w-full h-full" />
+        <div class="absolute flex items-center justify-center z-10 inset-0">
+          <div class="text-center text-white">
+            <h1 class="text-4xl mb-4">Become a CodeWhiz in no time!</h1>
+            <h2 class="text-xl mb-4">Quiz against other students</h2>
+            <button onclick="openModalSignup()" class="glitch-btn">
+              Get Started
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-gray-800 text-gray-400">
+      <div class="container mx-auto px-6 py-8 text-center">
+        <p class="mb-2">The fun way for middle schoolers to learn coding!</p>
+        <p class="text-sm">&copy; 2024 CodeWhiz. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <div
+      id="modalFullscreen"
+      class="hidden auth-modal flex z-50 fixed inset-0 bg-black bg-opacity-50 items-center justify-center"
+    >
+      <div
+        id="centerModalSignup"
+        class="hidden bg-white p-8 rounded-lg max-w-md"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex space-x-4">
+            <button
+              class="text-xl font-bold border-b-4 border-[#F12B18]"
+              id="signup"
+              onclick="switchSignup()"
+            >
+              Sign up
+            </button>
+            <button
+              class="text-xl font-bold border-b-4 border-white"
+              id="login"
+              onclick="switchLogin()"
+            >
+              Log in
+            </button>
+          </div>
+          <button
+            id="dismissBn"
+            class="rounded-lg hover:bg-red-200"
+            onclick="dismiss()"
+          >
+            <span class="[&>svg]:h-6 [&>svg]:w-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <button
+          class="w-full mt-4 mb-8 px-4 py-2 border-2 border-gray-300 rounded-full hover:bg-gray-100"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            class="icon--gXsxl w-6 h-6 inline-block mr-2"
+          >
+            <path
+              d="M0 12C0 5.373 5.373 0 12 0s12 5.373 12 12-5.373 12-12 12S0 18.627 0 12z"
+              fill="#f7f7f7"
+            ></path>
+            <path
+              d="M8.659 13.252l-.417 1.559-1.527.033A5.98 5.98 0 016 12c0-.995.242-1.933.671-2.759l1.359.249.596 1.351A3.554 3.554 0 008.433 12c0 .441.08.863.226 1.252z"
+              fill="#d14848"
+              fill-rule="nonzero"
+            ></path>
+            <path
+              d="M17.895 10.879a6.001 6.001 0 01-.026 2.374 5.996 5.996 0 01-2.113 3.426l-1.712-.088-.242-1.512a3.584 3.584 0 001.538-1.826h-3.208v-2.374h5.763z"
+              fill="#518ef8"
+              fill-rule="nonzero"
+            ></path>
+            <path
+              d="M15.756 16.679a5.998 5.998 0 01-9.041-1.836l1.944-1.591a3.568 3.568 0 005.142 1.827l1.955 1.6z"
+              fill="#00ab6b"
+              fill-rule="nonzero"
+            ></path>
+            <path
+              d="M15.83 7.381l-1.944 1.592a3.568 3.568 0 00-5.26 1.868l-1.955-1.6A5.997 5.997 0 0112 6c1.456 0 2.791.519 3.83 1.381z"
+              fill="#d14848"
+              fill-rule="nonzero"
+            ></path>
+          </svg>
+          Continue with Google
+        </button>
+        <div class="text-center">
+          <form id="signupForm">
+            <input
+              type="text"
+              id="signupUsername"
+              placeholder="Username"
+              class="w-full mb-3 p-3 border-2 border-gray-300 rounded-xl hover:border-gray-400 focus:outline-none focus:border-gray-500"
+            />
+            <input
+              type="text"
+              id="signupName"
+              placeholder="Name"
+              class="w-full mb-3 p-3 border-2 border-gray-300 rounded-xl hover:border-gray-400 focus:outline-none focus:border-gray-500"
+            />
+            <input
+              type="text"
+              id="signupEmail"
+              placeholder="Email"
+              class="w-full mb-3 p-3 border-2 border-gray-300 rounded-xl hover:border-gray-400 focus:outline-none focus:border-gray-500"
+            />
+            <input
+              type="password"
+              id="signupPass"
+              placeholder="Password"
+              class="w-full p-3 border-2 border-gray-300 rounded-xl hover:border-gray-400 focus:outline-none focus:border-gray-500"
+            />
+          </form>
+          <div id="signupError" class="text-red-500 mt-2 hidden"></div>
+          <button
+            class="px-8 py-3 mt-8 bg-[#282C32] text-[#FFFFFF] rounded-full hover:bg-[#010101]"
+            onclick="signup()"
+          >
+            Sign up
+          </button>
+        </div>
+      </div>
+      <div
+        id="centerModalLogin"
+        class="bg-white p-8 rounded-lg max-w-md hidden"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex space-x-4">
+            <button
+              class="text-xl font-bold border-b-4 border-white"
+              onclick="switchSignup()"
+            >
+              Sign up
+            </button>
+            <button
+              class="text-xl font-bold border-b-4 border-[#F12B18]"
+              onclick="switchLogin()"
+            >
+              Log in
+            </button>
+          </div>
+          <button
+            id="dismissBn"
+            class="rounded-lg hover:bg-red-200"
+            onclick="dismiss()"
+          >
+            <span class="[&>svg]:h-6 [&>svg]:w-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <button
+          class="w-full mt-4 mb-8 px-4 py-2 border-2 border-gray-300 rounded-full hover:bg-gray-100"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            class="icon--gXsxl w-6 h-6 inline-block mr-2"
+          >
+            <path
+              d="M0 12C0 5.373 5.373 0 12 0s12 5.373 12 12-5.373 12-12 12S0 18.627 0 12z"
+              fill="#f7f7f7"
+            ></path>
+            <path
+              d="M8.659 13.252l-.417 1.559-1.527.033A5.98 5.98 0 016 12c0-.995.242-1.933.671-2.759l1.359.249.596 1.351A3.554 3.554 0 008.433 12c0 .441.08.863.226 1.252z"
+              fill="#d14848"
+              fill-rule="nonzero"
+            ></path>
+            <path
+              d="M17.895 10.879a6.001 6.001 0 01-.026 2.374 5.996 5.996 0 01-2.113 3.426l-1.712-.088-.242-1.512a3.584 3.584 0 001.538-1.826h-3.208v-2.374h5.763z"
+              fill="#518ef8"
+              fill-rule="nonzero"
+            ></path>
+            <path
+              d="M15.756 16.679a5.998 5.998 0 01-9.041-1.836l1.944-1.591a3.568 3.568 0 005.142 1.827l1.955 1.6z"
+              fill="#00ab6b"
+              fill-rule="nonzero"
+            ></path>
+            <path
+              d="M15.83 7.381l-1.944 1.592a3.568 3.568 0 00-5.26 1.868l-1.955-1.6A5.997 5.997 0 0112 6c1.456 0 2.791.519 3.83 1.381z"
+              fill="#d14848"
+              fill-rule="nonzero"
+            ></path>
+          </svg>
+          Continue with Google
+        </button>
+        <div class="text-center">
+          <form id="signupForm">
+            <input
+              type="text"
+              id="loginEmail"
+              placeholder="Username or email"
+              class="w-full mb-3 p-3 border-2 border-gray-300 rounded-xl hover:border-gray-400 focus:outline-none focus:border-gray-500"
+            />
+            <input
+              type="password"
+              id="loginPass"
+              placeholder="Password"
+              class="w-full p-3 border-2 border-gray-300 rounded-xl hover:border-gray-400 focus:outline-none focus:border-gray-500"
+            />
+          </form>
+          <div id="loginError" class="text-red-500 mt-2 hidden"></div>
+          <button
+            id="loginBtn"
+            onclick="login()"
+            class="px-8 py-3 mt-8 bg-[#282C32] text-[#FFFFFF] rounded-full hover:bg-[#010101]"
+          >
+            Log in
+          </button>
+        </div>
+      </div>
+      <div
+        id="centerModalError"
+        class="bg-white p-8 rounded-lg max-w-md hidden"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <button
+            id="dismissBn"
+            class="rounded-lg hover:bg-red-200"
+            onclick="dismiss()"
+          >
+            <span class="[&>svg]:h-6 [&>svg]:w-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="text-center">
+          <p id="errorText" class="text-red-600 mb-4">Log in to enter!</p>
+          <button
+            onclick="openModalLogin()"
+            class="px-8 py-3 mt-8 bg-[#282C32] text-[#FFFFFF] rounded-full hover:bg-[#010101]"
+          >
+            Log in
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../static/js/script.js"></script>
+  </body>
+</html>
